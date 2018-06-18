@@ -1,0 +1,24 @@
+OrdererOrgs:
+  - Name: Orderer
+    Domain: cts.com
+    Specs:
+      - Hostname: orderer
+PeerOrgs:
+  - Name: Mojani
+    Domain: mojani.cts.com
+    Template:
+      Count: 1
+    Users:
+      Count: 1
+  - Name: Kaveri
+    Domain: kaveri.cts.com
+    Template:
+      Count: 2
+    Users:
+      Count: 1
+  - Name: Finance
+    Domain: finance.cts.com
+    Template:
+      Count: 1
+    Users:
+      Count: 1
