@@ -68,7 +68,7 @@ type LandRecord struct {
 	WardNo string `json:"wardNo"`
 	AreaCode string `json:"areaCode"`
 	SiteNo  string `json:"siteNo"`
-    GeoData GeoData `json:"geoData"`
+        GeoData GeoData `json:"geoData"`
 	Owner Owner `json:"owner"`	
 	Allotee Owner `json:"owner"`
 
