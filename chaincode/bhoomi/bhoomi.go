@@ -70,7 +70,7 @@ type LandRecord struct {
 	SiteNo  string `json:"siteNo"`
         GeoData GeoData `json:"geoData"`
 	Owner Owner `json:"owner"`	
-	Allotee Owner `json:"owner"`
+	Allotee Owner `json:"allotee"`
 
 }
 
@@ -137,6 +137,7 @@ func (s *SmartContract) queryLandRecord(stub shim.ChaincodeStubInterface, args [
         
         // args[0] = PID
 	landAsBytes, _ := stub.GetState(args[0])  
+        //fmt.Println("Found Land Record :"+landRec)
 	return shim.Success(landAsBytes)
 }
 
@@ -168,7 +169,7 @@ func (s *SmartContract) initLedger(stub shim.ChaincodeStubInterface) sc.Response
 		fmt.Println("i is ", i)
 		landAsBytes, _ := json.Marshal(landRecords[i]) //convert to bytes = VALUE
 		stub.PutState(landRecords[i].Pid, landAsBytes) //Pid is unique KEY
-		fmt.Println("Added", landRecords[i])
+		fmt.Println("Initialized a new land record !", landRecords[i])
 		i = i + 1
 	}
 
@@ -264,10 +265,15 @@ func (s *SmartContract) transferLandRecord(stub shim.ChaincodeStubInterface, arg
 
 	//check if land record with this Pid already exists
 	landRecord, err := get_landRecord(stub, id)
+
+
 	if err != nil {         //halt if error
 		return shim.Error("Failed to find the landRecord - " + id)
 	}
         
+	fmt.Println("Fetched landrecord", landRecord)
+
+
         //assign the values for the new owner object
       	landRecord.Owner.OwnerName = args[1]
         landRecord.Owner.Gender = args[2]
@@ -298,7 +304,7 @@ func (s *SmartContract) allotNewLandRecord(stub shim.ChaincodeStubInterface, arg
 	if err != nil {         //halt if error
 		return shim.Error("Failed to find the landRecord - " + id)
 	}
-        
+        fmt.Println("fetched landrecord", landRecord)
         //assign the values for the new owner object
       	landRecord.Allotee.OwnerName = args[1]
         landRecord.Allotee.Gender = args[2]
