@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 #
 # Copyright IBM Corp All Rights Reserved
 #
@@ -6,6 +6,7 @@
 #
 # Exit on first error, print all commands.
 set -ev
+export COMPOSE_PROJECT_NAME="bhoomi"
 
 # Shut down the Docker containers that might be currently running.
 docker-compose -f docker-compose.yml stop
